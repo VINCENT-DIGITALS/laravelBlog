@@ -47,14 +47,29 @@ use App\Http\Controllers\GoogleController;
 Route::get('auth/google', [GoogleController::class, 'redirectToGoogle'])->name('auth.google');
 Route::get('auth/google/callback', [GoogleController::class, 'handleGoogleCallback']);
 
-use App\Http\Controllers\PostController;
+use App\Http\Controllers\BlogController;
 
-Route::get('/posts', [PostController::class, 'index']);
+Route::get('/fetch-blogs', [BlogController::class, 'fetchBlogs'])->name('fetchBlogs');
+
+Route::get('/blog/{id}', [BlogController::class, 'show'])->name('blogDetails');
+Route::post('/blogs', [BlogController::class, 'store'])->name('blogs.store');
+Route::get('/blog/edit/{id}', [BlogController::class, 'edit'])->name('editBlog');
+Route::post('/blog/update/{id}', [BlogController::class, 'update'])->name('updateBlog');
+Route::delete('/blog/delete/{id}', [BlogController::class, 'destroy'])->name('deleteBlog');
+Route::post('/likepost', [BlogController::class, 'likePost'])->name('like.post');
+
+use App\Http\Controllers\CommentController;
+
+Route::post('/submit-comment', [CommentController::class, 'store'])->name('submitComment');
+
+
+Route::get('/admin', [PageController::class, 'createBlog'])->name('adminCreate');
+
+
+Route::get('/AdminDashboard', [PageController::class, 'AdminDashboard'])->name('AdminDashboard');
 
 Route::get('/', function () {
     return view('welcome');
 })->name('Home');;
 Route::get('/continue-as-guest', [AuthController::class, 'continueAsGuest'])->name('guest.continue');
 Route::get('/admin/login', [AuthController::class, 'adminLogin'])->name('admin.login');
-
-Route::get('/AdminDashboard', [PageController::class, 'AdminDashboard'])->name('AdminDashboard');

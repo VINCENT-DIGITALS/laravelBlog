@@ -8,13 +8,18 @@ use Laravel\Socialite\Facades\Socialite;
 use App\Models\User;
 use Illuminate\Support\Facades\Auth;
 use Illuminate\Support\Facades\DB;
-
+use Illuminate\Http\Request;
 class GoogleController extends Controller
 {
     // Redirect to Google for authentication
-    public function redirectToGoogle()
+    public function redirectToGoogle(Request $request)
     {
         try {
+            // Capture state from the request (e.g., return URL or other data)
+            $state = $request->get('state');
+
+            // Store the state in the session
+            $request->session()->put('state', $state);
             return Socialite::driver('google')->redirect();
         } catch (\Exception $e) {
 
@@ -80,7 +85,7 @@ class GoogleController extends Controller
 
             // Store user details in session
             try {
-                Session::put('user_id', $googleId);
+                Session::put('user_id', $user->id);
                 Session::put('username', $googleName);
                 Session::put('email', $googleEmail);
                 Session::put('role', 'Google User'); // Role can be customized as needed

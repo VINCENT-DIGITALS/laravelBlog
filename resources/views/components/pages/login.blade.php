@@ -18,7 +18,7 @@
 
         body {
             font-family: Arial, sans-serif;
-            background: linear-gradient(to bottom right, #4CAF50, #2F8F50);
+
             display: flex;
             justify-content: center;
             align-items: center;
@@ -94,36 +94,63 @@
         .social-login {
             margin-top: 20px;
             text-align: center;
+            display: flex;
+            flex-direction: column;
+            gap: 10px;
+            /* Spacing between buttons */
         }
 
-        .social-login button {
-            width: 100%;
-            margin-bottom: 10px;
-            padding: 10px;
-            font-size: 16px;
-            border-radius: 10px;
+        .social-login a {
+            text-decoration: none;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            gap: 10px;
+            /* Space for the icon */
+            padding: 12px 15px;
+            font-size: 1rem;
+            font-weight: bold;
+            border-radius: 25px;
+            border: none;
             cursor: pointer;
-            transition: background-color 0.3s ease;
+            transition: background-color 0.3s ease, transform 0.2s ease;
+            color: white;
+            /* Ensure text is visible on colored backgrounds */
+            box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1);
+            width: 100%;
         }
 
+        /* Facebook Button */
         .facebook-login-button {
             background-color: #4267B2;
-            color: white;
-            border: none;
         }
 
         .facebook-login-button:hover {
             background-color: #365899;
+            transform: translateY(-2px);
         }
 
+        /* Google Button */
         .google-login-button {
             background-color: #DB4437;
-            color: white;
-            border: none;
         }
 
         .google-login-button:hover {
             background-color: #C23321;
+            transform: translateY(-2px);
+        }
+
+        /* Adding Icons */
+        .social-login a i {
+            font-size: 1.2rem;
+        }
+
+        /* Mobile Adjustments */
+        @media (max-width: 600px) {
+            .social-login a {
+                font-size: 0.9rem;
+                padding: 10px;
+            }
         }
 
         #responseMessage {
@@ -284,30 +311,15 @@
         </form>
 
         <div class="social-login">
-            <!-- Custom Facebook Login Button -->
-            <a href="{{ route('facebook.login') }}" class="btn btn-primary">
-                Login with Facebook
+            <a href="{{ route('facebook.login', ['state' => url('/Home')]) }}" class="facebook-login-button">
+                <i class="fab fa-facebook-f"></i> Login with Facebook
             </a>
-            <a href="{{ route('auth.google') }}" class="btn btn-primary">
-                Login with Google
+            <a href="{{ route('auth.google', ['state' => url('/Home')]) }}" class="google-login-button">
+                <i class="fab fa-google"></i> Login with Google
             </a>
-
-
-
-            <!-- Sign In With Google button with HTML data attributes API -->
-            {{-- <div id="g_id_onload"
-                data-client_id="624367051637-26ok23b3casi34oeo728ee1jltjb04bo.apps.googleusercontent.com"
-                data-context="signin" data-ux_mode="popup" data-callback="handleCredentialResponse"
-                data-auto_prompt="false">
-            </div>
-
-            <div class="g_id_signin" data-type="standard">
-            </div> --}}
-
-            <!-- User Profile Display -->
-
-            <div class="pro-data hidden"></div>
         </div>
+
+
     </div>
 
     @include('includes.js')

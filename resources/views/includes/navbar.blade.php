@@ -9,7 +9,7 @@
 
         {{-- Check if the user is an admin using the session role --}}
         @if (session('role') === 'Admin')
-            <li class="{{ Request::is('components/pages/admin/dashboard') ? 'active' : '' }}">
+            <li class="{{ Request::is('AdminDashboard') ? 'active' : '' }}">
                 <a href="{{ route('AdminDashboard') }}">Admin Dashboard</a>
             </li>
         @endif

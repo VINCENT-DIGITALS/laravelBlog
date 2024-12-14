@@ -5,366 +5,454 @@
 
 <style>
     body {
-        font-family: Arial, sans-serif;
+        background-color: #f9f9f9;
+        font-family: 'Arial', sans-serif;
         margin: 0;
         padding: 0;
-        background-color: #f5f5f5;
     }
 
     header {
-        background-color: #333;
-        color: white;
-        padding: 20px;
-        text-align: center;
-        position: relative;
-    }
-
-    header h1 {
-        margin: 0;
-        font-size: 24px;
-    }
-
-    header button {
-        position: absolute;
-        top: 20px;
-        right: 20px;
-        padding: 10px 20px;
-        background-color: #4CAF50;
-        color: white;
-        border: none;
-        cursor: pointer;
-    }
-
-    main {
-        padding: 20px;
-    }
-
-    /* Grid Layout */
-    .grid-container {
-        display: grid;
-        grid-template-columns: repeat(auto-fill, minmax(300px, 1fr));
-        gap: 20px;
-    }
-
-    .blog-card {
-        background-color: white;
-        border-radius: 10px;
-        box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
-        padding: 20px;
-        position: relative;
-    }
-
-    .blog-card h3 {
-        margin-top: 0;
-    }
-
-    .blog-card p {
-        color: #666;
-    }
-
-    .blog-card button {
-        padding: 5px 10px;
-        margin-right: 5px;
-        border: none;
-        cursor: pointer;
-        color: white;
-    }
-
-    .updateBtn {
-        background-color: #007BFF;
-    }
-
-    .deleteBtn {
-        background-color: #DC3545;
-    }
-
-    /* Modal styles */
-    .modal {
-        display: none;
-        position: fixed;
-        top: 0;
-        left: 0;
-        width: 100%;
-        height: 100%;
-        background-color: rgba(0, 0, 0, 0.6);
         display: flex;
-        justify-content: center;
+        justify-content: space-between;
         align-items: center;
-        z-index: 1000;
+        color: black;
+        padding: 5px;
+
     }
 
-    .modal-content {
-        background-color: white;
-        padding: 20px;
-        border-radius: 5px;
-        width: 90%;
-        max-width: 500px;
-        max-height: 90vh;
-        overflow-y: auto;
-        box-shadow: 0 4px 8px rgba(0, 0, 0, 0.2);
-    }
-
-    .modal-content h2 {
-        margin-top: 0;
-    }
-
-    .modal-content form input,
-    .modal-content form textarea {
-        width: 100%;
-        margin-bottom: 15px;
-        padding: 10px;
-        border: 1px solid #ddd;
-    }
-
-    .modal-content textarea {
-        width: 100%;
-        height: 150px;
-        resize: vertical;
-        box-sizing: border-box;
-    }
-
-    .modal-content button {
-        background-color: #4CAF50;
+    .add_btn {
+        background-color: #007bff;
         color: white;
+        font-weight: bold;
         border: none;
-        padding: 10px 20px;
-        cursor: pointer;
-    }
-
-    .modal-content .cancelBtn {
-        background-color: #f44336;
-        margin-left: 10px;
-    }
-
-
-
-    .search-container {
-        margin: 20px 0;
-        text-align: center;
-    }
-
-    #searchInput {
-        width: 50%;
-        padding: 10px 20px;
-        border: 2px solid #ddd;
-        border-radius: 25px;
-        font-size: 16px;
-        box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1);
+        border-radius: 5px;
+        padding: 10px 15px;
+        text-decoration: none;
+        display: flex;
+        align-items: center;
+        gap: 5px;
         transition: all 0.3s ease;
     }
 
-    #searchInput:focus {
-        outline: none;
-        border-color: #007bff;
-        box-shadow: 0 4px 12px rgba(0, 123, 255, 0.3);
+    .add_btn:hover {
+        background-color: #0056b3;
     }
 
+    .search-container {
+        display: flex;
+        justify-content: center;
+        margin: 20px auto;
+    }
 
-    /* Filter Section */
+    .search-container input {
+        width: 100%;
+        max-width: 500px;
+        padding: 10px 15px;
+        border: 1px solid #ddd;
+        border-radius: 6px;
+        font-size: 1rem;
+    }
+
     .filter-section {
         display: flex;
         justify-content: center;
-        gap: 20px;
-        margin: auto;
-        max-width: 800px;
-        /* Limiting the width */
+        gap: 15px;
+        margin: 20px auto;
     }
 
-    .category-filter,
-    .date-filter {
+    .filter-section select {
+        padding: 10px;
+        border-radius: 6px;
+        border: 1px solid #ddd;
+        font-size: 1rem;
+    }
+
+    #applyFilter {
+        background-color: #007bff;
+        color: white;
+        border: none;
+        border-radius: 6px;
+        padding: 10px 15px;
+        font-size: 1rem;
+        cursor: pointer;
+        transition: all 0.3s;
+    }
+
+    #applyFilter:hover {
+        background-color: #0056b3;
+    }
+
+    .grid-container {
+        display: grid;
+        grid-template-columns: repeat(auto-fit, minmax(300px, 1fr));
+        gap: 20px;
+        padding: 20px;
+    }
+
+    .blog-card {
+        background: white;
+        border-radius: 8px;
+        box-shadow: 0 4px 10px rgba(0, 0, 0, 0.1);
+        overflow: hidden;
+        cursor: pointer;
+        transition: transform 0.3s ease, box-shadow 0.3s ease;
+        text-decoration: none;
+        color: inherit;
+    }
+
+    .blog-card:hover {
+        transform: scale(1.02);
+        box-shadow: 0 6px 15px rgba(0, 0, 0, 0.15);
+    }
+
+    .blog-card img {
+        width: 100%;
+        height: 180px;
+        object-fit: cover;
+    }
+
+    .blog-card-content {
+        padding: 15px;
+    }
+
+    .blog-card-content h3 {
+        font-size: 1.5rem;
+        margin: 0;
+        margin-bottom: 10px;
+        color: #007bff;
+    }
+
+    .blog-card-content p {
+        font-size: 0.9rem;
+        color: #555;
+        margin-bottom: 10px;
+    }
+
+    .blog-card-content .category {
+        display: inline-block;
+        margin-top: 10px;
+        font-size: 0.85rem;
+        padding: 5px 10px;
+        border-radius: 5px;
+        color: white;
+        background-color: #007bff;
+    }
+
+    .no-blogs {
+        text-align: center;
+        font-size: 1.2rem;
+        color: #777;
+        padding: 20px;
+    }
+
+    /* Container for the toast */
+    .toast-container {
+        position: fixed;
+        top: 20px;
+        right: 20px;
+        z-index: 9999;
         display: flex;
         flex-direction: column;
-        align-items: center;
+        gap: 10px;
     }
 
-    label {
-        margin-bottom: 5px;
-        font-size: 14px;
-        color: #333;
+    /* Toast style */
+    .toast {
+        background-color: #333;
+        color: white;
+        padding: 10px 20px;
+        border-radius: 5px;
+        box-shadow: 0 4px 8px rgba(0, 0, 0, 0.2);
+        min-width: 250px;
+        max-width: 300px;
+        animation: slideIn 0.5s ease-out, fadeOut 3s 2.5s forwards;
     }
 
-    select {
-        padding: 8px 12px;
-        border-radius: 8px;
-        border: 1px solid #ddd;
-        background-color: #fff;
-        font-size: 14px;
-        width: 150px;
-        transition: border-color 0.3s ease;
-    }
-
-    select:focus {
-        outline: none;
-        border-color: #007bff;
-    }
-
-    /* Apply Filter button */
-    button#applyFilter {
-        padding: 10px 10px;
+    /* Success toast (green) */
+    .toast.alert-success {
         background-color: #28a745;
+    }
+
+    /* Danger toast (red) */
+    .toast.alert-danger {
+        background-color: #dc3545;
+    }
+
+    /* Animation for sliding in */
+    @keyframes slideIn {
+        from {
+            transform: translateX(100%);
+        }
+
+        to {
+            transform: translateX(0);
+        }
+    }
+
+    /* Fade out animation */
+    @keyframes fadeOut {
+        from {
+            opacity: 1;
+        }
+
+        to {
+            opacity: 0;
+        }
+    }
+
+    /* Container for the toast */
+    .toast-container {
+        position: fixed;
+        top: 20px;
+        right: 20px;
+        z-index: 9999;
+        display: flex;
+        flex-direction: column;
+        gap: 10px;
+    }
+
+    /* Toast style */
+    .toast {
+        background-color: #dc3545;
+        /* Red background for errors */
+        color: white;
+        padding: 10px 20px;
+        border-radius: 5px;
+        box-shadow: 0 4px 8px rgba(0, 0, 0, 0.2);
+        min-width: 250px;
+        max-width: 300px;
+        animation: slideIn 0.5s ease-out, fadeOut 3s 2.5s forwards;
+    }
+
+    /* Animation for sliding in */
+    @keyframes slideIn {
+        from {
+            transform: translateX(100%);
+        }
+
+        to {
+            transform: translateX(0);
+        }
+    }
+
+    /* Fade out animation */
+    @keyframes fadeOut {
+        from {
+            opacity: 1;
+        }
+
+        to {
+            opacity: 0;
+        }
+    }
+
+    .blog-actions {
+        display: flex;
+        justify-content: flex-end;
+        gap: 10px;
+        margin-top: 10px;
+    }
+
+    .blog-actions button {
+        display: flex;
+        align-items: center;
+        gap: 5px;
+        padding: 8px 12px;
         border: none;
-        border-radius: 8px;
-        color: #fff;
+        border-radius: 5px;
+        font-size: 14px;
+        font-weight: 600;
+        cursor: pointer;
+        transition: all 0.3s ease;
+    }
+
+    .blog-actions .edit-btn {
+        background-color: #007bff;
+        /* Blue */
+        color: white;
+    }
+
+    .blog-actions .edit-btn:hover {
+        background-color: #0056b3;
+        /* Darker Blue */
+    }
+
+    .blog-actions .delete-btn {
+        background-color: #dc3545;
+        /* Red */
+        color: white;
+    }
+
+    .blog-actions .delete-btn:hover {
+        background-color: #a71d2a;
+        /* Darker Red */
+    }
+
+    /* Add icons styling */
+    .blog-actions button i {
         font-size: 16px;
-        font-weight: bold;
-        cursor: pointer;
-        transition: background-color 0.3s ease, transform 0.2s ease;
-        width: fit-content;
-        margin: auto;
-        /* Centering the button */
-    }
-
-    button#applyFilter:hover {
-        background-color: #218838;
-        transform: scale(1.05);
-    }
-
-    /* Responsive adjustments */
-    @media (max-width: 768px) {
-        #searchInput {
-            width: 80%;
-        }
-
-        .filter-section {
-            flex-direction: column;
-            gap: 15px;
-        }
-
-        select {
-            width: 100%;
-
-        }
-    }
-
-    /* Custom Select Styling */
-    .custom-select {
-        position: relative;
-        width: 100%;
-        margin-bottom: 15px;
-    }
-
-    .custom-select select {
-        width: 100%;
-        padding: 10px;
-        font-size: 14px;
-        font-family: 'Arial', sans-serif;
-        border: 1px solid #ccc;
-        border-radius: 4px;
-        appearance: none;
-        background-color: white;
-        cursor: pointer;
-        color: #555;
-    }
-
-    .custom-select:after {
-        content: "▼";
-        font-size: 14px;
-        position: absolute;
-        top: 50%;
-        right: 15px;
-        transform: translateY(-50%);
-        pointer-events: none;
-        color: #999;
-    }
-
-    .custom-select select:focus {
-        border-color: #007bff;
-    }
-
-    .custom-select select:invalid {
-        color: #999;
     }
 </style>
 
 <body>
     @include('includes.navbar')
 
+    <!-- Header Section -->
     <header>
-        <h1>My Blogs</h1>
-        <button id="createBlogBtn">+ Create New Blog</button>
+
+        <a class="add_btn" href="{{ route('adminCreate') }}">
+            <i class="fa fa-plus-circle me-1"></i> Create Blog
+        </a>
     </header>
+    <!-- Display Validation Errors -->
+    @if ($errors->any())
+        <div class="toast-container">
+            <div class="toast alert-danger">
+                <ul>
+                    @foreach ($errors->all() as $error)
+                        <li>{{ $error }}</li>
+                    @endforeach
+                </ul>
+            </div>
+        </div>
+    @endif
+
+    @if (session('msg'))
+        <div class="toast-container">
+            <div class="toast alert-{{ session('msg')[0] }}">
+                <p>{{ session('msg')[1] }}</p>
+            </div>
+        </div>
+    @endif
+    <!-- Search Section -->
     <section class="search-container">
         <input type="text" id="searchInput" placeholder="Search for a blog..." />
     </section>
-    <div class="filter-section">
-        <div class="category-filter">
-            <select id="categoryFilter">
-                <option value="">All Categories</option>
-                <option value="Technology">Technology</option>
-                <option value="Education">Education</option>
-                <option value="Politics">Politics</option>
-                <option value="Economics">Economics</option>
-            </select>
-        </div>
 
+    <!-- Filter Section -->
+    <div class="filter-section">
+        <select id="categoryFilter">
+            <option value="">All Categories</option>
+            <option value="Technology">Technology</option>
+            <option value="Education">Education</option>
+            <option value="Politics">Politics</option>
+            <option value="Economics">Economics</option>
+        </select>
         <button id="applyFilter">Apply Filter</button>
     </div>
+
     <main>
-        <!-- Create Blog Modal -->
-        <div id="createBlogModal" class="modal" style="display: none;">
-            <div class="modal-content">
-                <h2>Create Blog</h2>
-                <form id="createBlogForm" method="post" action="/Blog/db/request.php">
-                    <label>Title:</label>
-                    <input type="text" name="title" required>
-                    <label for="category">Category:</label>
-                    <select class="custom-select" name="category" required>
-                        <option value="" disabled selected>Select a category</option>
-                        <option value="Technology">Technology</option>
-                        <option value="Education">Education</option>
-                        <option value="Politics">Politics</option>
-                        <option value="Economics">Economics</option>
-                    </select>
-                    <label>Content:</label>
-                    <textarea name="content" rows="3" required></textarea>
-                    <button type="submit" onclick="return confirm('Upload the Blog?');">Create</button>
-                    <button type="button" name="add_post" class="cancelBtn"
-                        onclick="closeModal('#createBlogModal')">Cancel</button>
-                </form>
-            </div>
-        </div>
-
-        <!-- Update Blog Modal -->
-        <div id="updateBlogModal" class="modal" style="display: none;">
-            <div class="modal-content">
-                <h2>Update Blog</h2>
-                <form id="updateBlogForm" method="post" action="/Blog/db/request.php">
-                    <input type="hidden" name="id" id="BlogId">
-                    <label>Title:</label>
-                    <input type="text" name="title" id="Updatetitle" required>
-
-                    <label for="category">Category:</label>
-                    <select class="custom-select" name="category" id="UpdateCategory" required>
-                        <option value="" disabled selected>Select a category</option>
-                        <option value="Technology" id="UpdateTech">Technology</option>
-                        <option value="Education" id="UpdateEduc">Education</option>
-                        <option value="Politics" id="UpdatePolitics">Politics</option>
-                        <option value="Economics" id="UpdateEco">Economics</option>
-                    </select>
-
-                    <label>Content:</label>
-                    <textarea name="content" rows="3" id="UpdateContent" required></textarea>
-
-                    <button type="submit" name="update_post"
-                        onclick="return confirm('Update the Blog?');">Update</button>
-                    <button type="button" class="cancelBtn" onclick="closeModal('#updateBlogModal')">Cancel</button>
-                </form>
-            </div>
-        </div>
-
-
-        <!-- Blog List -->
         <section>
-
             <div class="grid-container" id="gridBlogs">
-                <!-- Blog cards will be populated here by JavaScript -->
+                <!-- Blog cards will be dynamically added here -->
             </div>
         </section>
     </main>
 
     @include('includes.footer')
-
-    
 </body>
+
+<script>
+    $(document).ready(function() {
+        // Function to fetch and display blogs
+        function fetchBlogs(category = '', search = '') {
+            $.ajax({
+                url: "{{ route('fetchBlogs') }}",
+                method: "GET",
+                data: {
+                    category: category,
+                    search: search
+                },
+                success: function(data) {
+                    const blogContainer = $('#gridBlogs');
+                    blogContainer.empty();
+
+                    if (data.length > 0) {
+                        data.forEach(post => {
+                            const blogCard = `
+                                <div class="blog-card">
+                                    <a href="/blog/${post.id}" class="blog-link">
+                                        <img src="{{ session('profile_picture') ?: asset('assets/LOGO.png') }}" alt="Blog Image">
+                                        <div class="blog-card-content">
+                                            <h3>${post.title}</h3>
+                                            <p>${post.content.substring(0, 100)}...</p>
+                                            <span class="category">${post.category}</span>
+                                        </div>
+                                    </a>
+                                    <div class="blog-actions">
+                                        <button class="edit-btn" data-id="${post.id}">
+                                            <i class="fa fa-edit"></i> Edit
+                                        </button>
+                                        <button class="delete-btn" data-id="${post.id}">
+                                            <i class="fa fa-trash"></i> Delete
+                                        </button>
+                                    </div>
+
+                                </div>
+                                `;
+                            blogContainer.append(blogCard);
+                        });
+                    } else {
+                        blogContainer.append('<p class="no-blogs">No blogs found.</p>');
+                    }
+                },
+                error: function(err) {
+                    console.error('Error fetching blogs:', err);
+                }
+            });
+        }
+
+        // Fetch blogs on page load
+        fetchBlogs();
+
+        // Apply filters on button click
+        $('#applyFilter').click(function() {
+            const category = $('#categoryFilter').val();
+            const search = $('#searchInput').val();
+            fetchBlogs(category, search);
+        });
+
+        // Trigger search on typing
+        $('#searchInput').on('keyup', function() {
+            const category = $('#categoryFilter').val();
+            const search = $(this).val();
+            fetchBlogs(category, search);
+        });
+
+        // Handle edit button click
+        $(document).on('click', '.edit-btn', function() {
+            const blogId = $(this).data('id');
+            // Redirect to edit page
+            window.location.href = `/blog/edit/${blogId}`;
+        });
+
+        // Handle delete button click
+        $(document).on('click', '.delete-btn', function() {
+            const blogId = $(this).data('id');
+            const confirmed = confirm('Are you sure you want to delete this blog?');
+
+            if (confirmed) {
+                $.ajax({
+                    url: `/blog/delete/${blogId}`,
+                    method: 'DELETE',
+                    headers: {
+                        'X-CSRF-TOKEN': $('meta[name="csrf-token"]').attr('content')
+                    },
+                    success: function(response) {
+                        // Display a toast message for success
+                        alert(response.message || 'Blog deleted successfully.');
+                        fetchBlogs(); // Refresh the blog list
+                    },
+                    error: function(err) {
+                        console.error('Error deleting blog:', err);
+                        alert(err.responseJSON?.message || 'Failed to delete the blog.');
+                    }
+                });
+            }
+        });
+
+    });
+</script>
+
 
 </html>

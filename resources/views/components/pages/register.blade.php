@@ -243,10 +243,7 @@
         @endif
 
         <button type="submit" name="add_user">Sign up</button><br>
-        <div>
-            <button id="facebookLogin" type="button">Sign up with Facebook</button><br>
-            <button id="googleLogin" type="button">Sign up with Google</button><br>
-        </div>
+        
 
         <a class="guest" href="{{ route('returnHome') }}">Guest</a><br>
         <div class="footer">Already have an account? <a href="{{ route('userLogInForm') }}">Login here</a></div>

@@ -12,4 +12,10 @@ class PageController extends Controller
   {
       return view('components/pages/admin/dashboard');
   }
+
+  public function createBlog(){
+    return view('components.pages.admin.create_blog');
+  }
+
+  
 }

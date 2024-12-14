@@ -13,8 +13,13 @@ use Illuminate\Support\Facades\Log; // Add this import
 class FacebookController extends Controller
 {
     // Redirect to Facebook
-    public function redirectToFacebook()
+    public function redirectToFacebook(Request $request)
     {
+        // Capture state from the request (e.g., return URL or other data)
+        $state = $request->get('state');
+
+        // Store the state in the session
+        $request->session()->put('state', $state);
         return Socialite::driver('facebook')->redirect();
     }
 
@@ -22,7 +27,7 @@ class FacebookController extends Controller
     public function handleFacebookCallback()
     {
         try {
-        
+
             // Fetch the user from Facebook
             $facebookUser = Socialite::driver('facebook')->user();
 
@@ -50,12 +55,18 @@ class FacebookController extends Controller
             }
 
             // Store user details in session
-            Session::put('user_id', $facebookId);
+            Session::put('user_id', $user->id);
             Session::put('username', $facebookName);
             Session::put('email', $facebookEmail);
             Session::put('role', 'Facebook User'); // Role can be customized as needed
 
-
+            // Retrieve the state from the session
+            $state = Session::get('state');
+            // Check if a state (e.g., return URL) is provided
+            if ($state) {
+                // Redirect to the state URL if it exists
+                return redirect($state)->with(['msg' => ['success', 'Logged in successfully!']]);
+            }
             // Success message
             $msg = ['success', 'Student Data is Added, Please Log In!'];
 
