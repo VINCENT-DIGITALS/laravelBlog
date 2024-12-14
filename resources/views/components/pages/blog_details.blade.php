@@ -303,15 +303,15 @@
                     <button class="toggle-comments-btn" onclick="toggleComments()">Toggle Comments</button>
                 </div>
                 <div id="comments-container" class="comments-container">
-                    @if (session('user_id'))
-                        <form action="{{ route('submitComment') }}" method="POST" class="comment-form">
-                            @csrf
-                            <input type="hidden" name="post_id" value="{{ $blog->id }}">
-                            <textarea name="comment" rows="4" placeholder="Write a comment..." required></textarea>
-                            <button type="submit" class="submit-comment-btn">Submit Comment</button>
-                        </form>
-                    @else
-                        <p>You must be logged in to comment.</p>
+                        @if (session('user_id') && session('role') !== 'Admin')
+                            <form action="{{ route('submitComment') }}" method="POST" class="comment-form">
+                                @csrf
+                                <input type="hidden" name="post_id" value="{{ $blog->id }}">
+                                <textarea name="comment" rows="4" placeholder="Write a comment..." required></textarea>
+                                <button type="submit" class="submit-comment-btn">Submit Comment</button>
+                            </form>
+                        @else
+                        <p>You must be a registered user to comment.</p>
                     @endif
 
                     <ul class="comment-list">
