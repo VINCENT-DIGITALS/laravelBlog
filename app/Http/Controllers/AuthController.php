@@ -95,7 +95,7 @@ class AuthController extends Controller
                 Session::put('username', $user->username);
                 Session::put('email', $user->email);
                 Session::put('role', 'Admin'); // Store role as 'Admin' or 'User'
-
+                
                 // Flash success message to the session
                 session()->flash('msg', ['success', 'Admin login successful. Redirecting...']);
 

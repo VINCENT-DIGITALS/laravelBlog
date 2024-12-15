@@ -91,6 +91,7 @@ class GoogleController extends Controller
                 Session::put('username', $googleName);
                 Session::put('email', $googleEmail);
                 Session::put('role', 'Google User'); // Role can be customized as needed
+                
             } catch (\Exception $e) {
 
                 $msg = ['danger', 'Error in Adding Data! ' . $e];
