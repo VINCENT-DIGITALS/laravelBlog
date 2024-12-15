@@ -306,7 +306,7 @@
 
             <!-- <div id="status"></div> -->
             <button type="submit" name="find_user">Login</button><br>
-            <a href="{{ route('Home') }}">Gusest |</a>
+            <a href="{{ route('Home') }}">Guest |</a>
             <a href="{{ route('registerForm') }}">Sign up</a>
         </form>
 

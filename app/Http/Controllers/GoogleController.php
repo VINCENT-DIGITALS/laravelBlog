@@ -85,6 +85,8 @@ class GoogleController extends Controller
 
             // Store user details in session
             try {
+                $user = User::where('email', $googleEmail)->first();
+
                 Session::put('user_id', $user->id);
                 Session::put('username', $googleName);
                 Session::put('email', $googleEmail);
@@ -98,7 +100,7 @@ class GoogleController extends Controller
             }
 
             // Success message
-            $msg = ['success', 'Student Data is Added, Please Log In!'];
+            $msg = ['success', 'Logged in successfully!'];
             return redirect()->route('returnHome')->with(['msg' => $msg]);
         } catch (\Illuminate\Database\QueryException $e) {
             if ($e->errorInfo[1] == 1062) {

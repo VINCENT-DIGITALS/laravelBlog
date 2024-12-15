@@ -36,6 +36,8 @@ Route::post('/adminlogin', [AuthController::class, 'adminlogin'])->name('adminlo
 Route::post('/registerUser', [AuthController::class, 'registerUser'])->name('registerUser');
 
 
+
+//WEB ROUTE
 use App\Http\Controllers\FacebookController;
 
 Route::get('auth/facebook', [FacebookController::class, 'redirectToFacebook'])->name('facebook.login');
@@ -46,6 +48,9 @@ use App\Http\Controllers\GoogleController;
 
 Route::get('auth/google', [GoogleController::class, 'redirectToGoogle'])->name('auth.google');
 Route::get('auth/google/callback', [GoogleController::class, 'handleGoogleCallback']);
+
+
+
 
 use App\Http\Controllers\BlogController;
 

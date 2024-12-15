@@ -53,7 +53,7 @@ class FacebookController extends Controller
 
                 DB::commit();
             }
-
+            $user = User::where('email', $facebookEmail)->first();
             // Store user details in session
             Session::put('user_id', $user->id);
             Session::put('username', $facebookName);

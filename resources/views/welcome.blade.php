@@ -364,17 +364,20 @@
 
                         if (data.length > 0) {
                             data.forEach(post => {
-    const userId = '{{ session('user_id') }}'; // Assuming you're using a PHP session variable.
-    const userRole = '{{ session('role') }}'; // Assuming you're using a PHP session variable.
+                                const userId =
+                                '{{ session('user_id') }}'; // Assuming you're using a PHP session variable.
+                                const userRole =
+                                '{{ session('role') }}'; // Assuming you're using a PHP session variable.
 
-    const blogCard = `
+                                const blogCard = `
     <div class="blog-card">
         <a href="/blog/${post.id}" class="blog-card-link" aria-label="Read more about ${post.title}">
             <img 
                 class="blog-card-img" 
-                src="${post.image || '{{ asset('assets/LOGO.png') }}'}" 
+               src="{{ asset('assets/LOGO.png') }}"
                 alt="${post.title} image" 
-                onerror="this.src='{{ asset('assets/LOGO.png') }}';" />
+                onerror="this.src='{{ asset('assets/LOGO.png') }}';" 
+                loading="lazy"/>
             <div class="blog-card-content">
                 <h3 class="blog-card-title">${post.title}</h3>
                 <p class="blog-card-snippet">${post.content.substring(0, 100)}...</p>
@@ -382,13 +385,13 @@
             </div>
         </a>
         ${userId && userRole !== 'Admin' ? `
-            <div class="blog-likes">
-                <button class="like-btn" data-id="${post.id}" data-user-id="${userId}">
-                    <i class="fa fa-thumbs-up"></i> Like
-                </button>
-                <span class="likes-count">${post.likes_count || 0} Likes</span>
-            </div>
-        ` : ''}
+                <div class="blog-likes">
+                    <button class="like-btn" data-id="${post.id}" data-user-id="${userId}">
+                        <i class="fa fa-thumbs-up"></i> Like
+                    </button>
+                    <span class="likes-count">${post.likes_count || 0} Likes</span>
+                </div>
+            ` : ''}
         <div class="blog-share">
             <button class="share-btn" data-id="${post.id}" data-title="${post.title}">
                 <i class="fa fa-share"></i> Share
@@ -396,8 +399,8 @@
         </div>
     </div>
     `;
-    blogContainer.append(blogCard);
-});
+                                blogContainer.append(blogCard);
+                            });
 
                             // Add event listeners for share buttons
                             document.addEventListener('click', (event) => {
